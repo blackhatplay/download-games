@@ -130,7 +130,7 @@ header .main-nav {
             font-size: 0.9rem; }
       .main-wrapper .selected-item .selected-wrapper .download-wrapper {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         padding-top: 1rem;
         margin-top: 1rem; }
         .main-wrapper .selected-item .selected-wrapper .download-wrapper > a {
@@ -203,6 +203,8 @@ header .main-nav {
   .main-wrapper .search-list {
     order: 3;
     width: 100%; }
+    .main-wrapper .search-list .no-result {
+      text-align: center; }
     .main-wrapper .search-list .card-1 {
       display: flex;
       color: #fff;

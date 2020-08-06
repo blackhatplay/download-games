@@ -32,11 +32,7 @@ function uiInteraction(e) {
 
 function getLink(link) {
   var xhr = new XMLHttpRequest();
-  xhr.open(
-    "POST",
-    "https://testtravelhorse.000webhostapp.com/api/api.php",
-    true
-  );
+  xhr.open("POST", "http://localhost/api/api.php", true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -46,9 +42,18 @@ function getLink(link) {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       var res = JSON.parse(this.responseText);
       if (document.getElementById("download")) {
-        document.getElementById(
-          "download"
-        ).innerHTML = `<a href="${res.link}" target="_blank">Download</a>`;
+        document.getElementById("download").innerHTML = "";
+        if (res.length > 1) {
+          for (i = 0; i < res.length; i++) {
+            document.getElementById("download").innerHTML += `<a href="${
+              res[i]
+            }" target="_blank">Download  ${i + 1}</a>`;
+          }
+        } else {
+          document.getElementById(
+            "download"
+          ).innerHTML += `<a href="${res[0]}" target="_blank">Download</a>`;
+        }
       }
     }
   };
@@ -90,10 +95,11 @@ function getPost(e, link) {
 
 function getdata(s) {
   if (!s == "") {
-    fetch(`https://testtravelhorse.000webhostapp.com/api/getpost.php?s=${s}`)
+    fetch(`http://localhost/api/getpost.php?s=${s}`)
       .then((res) => res.json())
       .catch((err) => console.log(err))
       .then((data) => {
+        uiInteraction("removeOverlay");
         if (data.length > 0) {
           var temp = "";
           var postCount = 0;
@@ -122,12 +128,14 @@ function getdata(s) {
                 </div>
                 <div class="get-event" value="${element.href}"></div>
               </div>`;
-              uiInteraction("removeOverlay");
               searchList.innerHTML += temp;
             }
           });
         } else {
-          console.log(`${data.length} result found`);
+          searchList.innerHTML = `          
+          <div class="no-result">
+            <h2>No Result Found! Try different Keyword</h2>
+          </div>`;
         }
       });
   }
@@ -174,11 +182,7 @@ searchList.addEventListener("click", (e) => {
     uiInteraction("getOverlay");
 
     var xhr = new XMLHttpRequest();
-    xhr.open(
-      "POST",
-      "https://testtravelhorse.000webhostapp.com/api/getpost.php",
-      true
-    );
+    xhr.open("POST", "http://localhost/api/getpost.php", true);
 
     //Send the proper header information along with the request
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
