@@ -4,12 +4,29 @@
 // header("Access-Control-Allow-Origin: *");
 include("simplehtmldom/simple_html_dom.php");
 
-if($_SERVER['REQUEST_METHOD'] == "GET" and isset($_GET['s'])) { 
-    $searchTerm = (string) @$_GET['s'];
-    if ($searchTerm) {
-        // echo 'hello';
-        $stripped = trim(preg_replace('/\s+/', '+', $searchTerm));
-        $searchlink = 'http://oceanofgames.com/?s=' . $stripped;
+if($_SERVER['REQUEST_METHOD'] == "GET" and (isset($_GET['s']) || isset($_GET['cat']))) { 
+    if(isset($_GET['s'])){
+        if(isset($_GET['pageNo'])) {
+            $pageNo = (string) @$_GET['pageNo'];
+            $searchTerm = (string) @$_GET['s'];
+            $stripped = trim(preg_replace('/\s+/', '+', $searchTerm));
+            $searchlink = 'http://oceanofgames.com/page/'. $pageNo . '/?s=' . $stripped;
+        } else {
+            $searchTerm = (string) @$_GET['s'];
+            $stripped = trim(preg_replace('/\s+/', '+', $searchTerm));
+            $searchlink = 'http://oceanofgames.com/?s=' . $stripped;
+        }
+    } else if (isset($_GET['cat'])) {
+        if(isset($_GET['pageNo'])) {
+            $pageNo = (string) @$_GET['pageNo'];
+            $catTerm = (string) @$_GET['cat'];
+            $searchlink = 'http://oceanofgames.com/category/' . $catTerm . '/page/' . $pageNo .'/';
+        } else {
+            $catTerm = (string) @$_GET['cat'];
+            $searchlink = 'http://oceanofgames.com/category/' . $catTerm;
+        }
+    }
+
         $searchData = file_get_contents($searchlink);
         $searchData = str_get_html($searchData);
         $result = $searchData->find('div[class=post-details]');
@@ -18,14 +35,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET" and isset($_GET['s'])) {
         foreach($result as $element){
             $cat = [];
             for ($i = 0 ; $i<count($element->find('div[class=post-info]')[0]->find('a')) ; $i++) {
-                // print $element->find('div[class=post-info]')[0]->find('a')[$i]->plaintext;
                 array_push($cat, $element->find('div[class=post-info]')[0]->find('a')[$i]->plaintext);
             }
-            // $element->find('a[class=post-thumb]')[0]->href;
-            // $forImg = file_get_contents($element->find('a[class=post-thumb]')[0]->href);
-            // $forImg = str_get_html($forImg);
-            // $forImg = $forImg->find('.post-content')[0]->find("img")[0];
-            // print $forImg;
 
             $objects[] = (object) [
                 'title' => $element->find('a[class=post-thumb]')[0]->title,
@@ -35,9 +46,38 @@ if($_SERVER['REQUEST_METHOD'] == "GET" and isset($_GET['s'])) {
                 'category' => $cat
               ];
         }
+
+        $pageNo = $searchData->find('div[class=page-navi pagination numbers  clear-block]');
+
+        $nav[0] = false;
+        $nav[1] = false;
+
+        if($pageNo) {
+
+            if ($pageNo) {
+                $pageNo  = $pageNo[0]->children();
+                for($i=0; $i< count($pageNo); $i++){
+                    if($pageNo[$i]->class === 'current'){
+                        if($i != 0){
+                            $nav[0] = true;
+                        } else  {
+                            $nav[0] = false;
+                        }
+    
+                        if ($i+1 != count($pageNo)) {
+                            $nav[1] = true;
+                        } else {
+                            $nav[1] = false;
+                        }
+                    }
+                }
+            }
+        }
+        $objects[] = (object) [
+            "navLeft" => $nav[0],
+            "navRight" => $nav[1]
+          ];
         echo json_encode($objects);
-        // echo $result;
-    }
 }
 
 if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['link'])) {
@@ -66,25 +106,9 @@ function getLink($link){
 
     $img = $forImg[0]->src;
 
-    // $count = $details->find('.post-content')[0]->children();
-
-    // echo count($count);
-
     $gameOverview = $details->find('.post-content')[0]->find("p")[1]->plaintext . '<br>' . $details->find('.post-content')[0]->find("p")[2]->plaintext;
 
     $techincalSpecs = $details->find('.post-content')[0]->find("ul")[0]->innertext;
-    // $temp = '';
-    // foreach($postContent as $element){
-    // 	$temp =  $temp . '<br>' . $element->plaintext;
-    // }
-    
-
-
-    // print $title;
-    // echo '<br>';
-    // print $postContent[1]->innertext;
-    // print $techincalSpecs;
-    // print $gameOverview;
 
     $return = array(
         "title"=>$title,
