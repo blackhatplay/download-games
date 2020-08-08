@@ -17,26 +17,26 @@ if(($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['link'])) || ($_SERVER
 		// $details = file_get_contents($link,false,$context);
 
 		$cookie = tempnam ("/tmp", "CURLCOOKIE");
-		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1" );
-		curl_setopt( $ch, CURLOPT_URL, $link );
-		curl_setopt( $ch, CURLOPT_COOKIEJAR, $cookie );
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt( $ch, CURLOPT_ENCODING, "" );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 5 );
-		curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
-		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-		global $content;
-		$details = curl_exec( $ch );
-		$response = curl_getinfo( $ch );
-
-		curl_close ( $ch );
-
-
+        $ch = curl_init();
+        curl_setopt( $ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1" );
+        curl_setopt( $ch, CURLOPT_URL, $link );
+        curl_setopt( $ch, CURLOPT_COOKIEJAR, $cookie );
+        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+        curl_setopt( $ch, CURLOPT_ENCODING, "" );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
+        curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 5 );
+        curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
+        curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
+        global $content;
+        $details = curl_exec( $ch );
+        $response = curl_getinfo( $ch );
+        curl_close ( $ch );
+	
 		$details = str_get_html($details);
+		$return = [];
+		$mainFormArr = [];
 
 		$form = $details->find('form');
 		$i = 0;
@@ -50,7 +50,7 @@ if(($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['link'])) || ($_SERVER
 
 		 $i = 0;
 
-		foreach($mainFormArr as $mainForm) {
+			foreach($mainFormArr as $mainForm) {
 				$mainForm = $mainForm->find("input");
 
 			foreach($mainForm as $element){
@@ -89,22 +89,24 @@ function getLink($a,$b,$c) {
 	$filename = $a;
 	$id = $b;
 	$finalLink = $c;
-	$postdata = http_build_query(
+$postdata = http_build_query(
 		array(
 			'id' => $id,
 			'filename' => $filename
 		)
 
-	);
+);
 
-	$opts = array('http' =>
-			array(
+$opts = array('http' =>
+		array(
 
-				'method' => 'POST',
-				'header' => 'Content-type: application/x-www-form-urlencoded',
-				'content' => $postdata
-			)
-	);
+			'method' => 'POST',
+			'header' => 'Content-type: application/x-www-form-urlencoded',
+			'content' => $postdata
+		)
+);
+
+
 
 global $response;
 
@@ -112,6 +114,8 @@ $context = stream_context_create($opts);
 $response = file_get_contents($finalLink,false,$context);
 
 $html = str_get_html($response);
+
+// echo gettype($html);
 
 $script = $html->find('script');
 
