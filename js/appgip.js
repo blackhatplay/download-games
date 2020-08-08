@@ -25,7 +25,7 @@ function onload() {
 
 function updateCategory() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost/api/getcat.php", true);
+  xhr.open("GET", "http://localhost/api/getcatgip.php", true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -97,7 +97,7 @@ function uiInteraction(e, value) {
 
 function getLink(link) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost/api/api.php", true);
+  xhr.open("POST", "http://localhost/api/apigip.php", true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -108,22 +108,24 @@ function getLink(link) {
       var res = JSON.parse(this.responseText);
       if (document.getElementById("download")) {
         document.getElementById("download").innerHTML = "";
-        if (res.length > 1) {
-          for (i = 0; i < res.length; i++) {
-            if (i == 0) {
-              document.getElementById(
-                "download"
-              ).innerHTML += `<a href="${res[i]}" target="_blank">Download</a>`;
-            } else {
-              document.getElementById(
-                "download"
-              ).innerHTML += `<a href="${res[i]}" target="_blank">Download Mirror</a>`;
+        if (res.length > 0) {
+          if (res.length > 1) {
+            for (i = 0; i < res.length; i++) {
+              if (i == 0) {
+                document.getElementById(
+                  "download"
+                ).innerHTML += `<a href="${res[i]}" target="_blank">Download</a>`;
+              } else {
+                document.getElementById(
+                  "download"
+                ).innerHTML += `<a href="${res[i]}" target="_blank">Download Mirror</a>`;
+              }
             }
+          } else {
+            document.getElementById(
+              "download"
+            ).innerHTML += `<a href="${res[0]}" target="_blank">Download</a>`;
           }
-        } else {
-          document.getElementById(
-            "download"
-          ).innerHTML += `<a href="${res[0]}" target="_blank">Download</a>`;
         }
       }
     }
@@ -182,7 +184,7 @@ function getdata(type, value, pageNo = 1) {
         var temp = `cat=${value}`;
       }
     }
-    fetch(`http://localhost/api/getpost.php?${temp}`)
+    fetch(`http://localhost/api/getpostgip.php?${temp}`)
       .then((res) => res.json())
       .catch((err) => console.log(err))
       .then((data) => {
@@ -291,7 +293,7 @@ searchList.addEventListener("click", (e) => {
     uiInteraction("getOverlay");
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost/api/getpost.php", true);
+    xhr.open("POST", "http://localhost/api/getpostgip.php", true);
 
     //Send the proper header information along with the request
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
