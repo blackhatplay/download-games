@@ -25,7 +25,7 @@ function onload() {
 
 function updateCategory() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://testtravelhorse.000webhostapp.com/api/getcat.php", true);
+  xhr.open("GET", "https://blackhax.000webhostapp.com/api/getcat.php", true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -97,7 +97,7 @@ function uiInteraction(e, value) {
 
 function getLink(link) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://testtravelhorse.000webhostapp.com/api/api.php", true);
+  xhr.open("POST", "https://blackhax.000webhostapp.com/api/api.php", true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -182,7 +182,7 @@ function getdata(type, value, pageNo = 1) {
         var temp = `cat=${value}`;
       }
     }
-    fetch(`https://testtravelhorse.000webhostapp.com/api/getpost.php?${temp}`)
+    fetch(`https://blackhax.000webhostapp.com/api/getpost.php?${temp}`)
       .then((res) => res.json())
       .catch((err) => console.log(err))
       .then((data) => {
@@ -291,7 +291,7 @@ searchList.addEventListener("click", (e) => {
     uiInteraction("getOverlay");
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://testtravelhorse.000webhostapp.com/api/getpost.php", true);
+    xhr.open("POST", "https://blackhax.000webhostapp.com/api/getpost.php", true);
 
     //Send the proper header information along with the request
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
