@@ -85,13 +85,15 @@ header {
       justify-content: flex-end;
       align-items: center; }
 
-.app-selector ul {
-  display: flex;
-  gap: 1rem; }
-  .app-selector ul li {
-    border-radius: 5px; }
-    .app-selector ul li a {
-      padding: 0.8rem 1rem; }
+.app-selector {
+  align-self: center; }
+  .app-selector ul {
+    display: flex;
+    gap: 1rem; }
+    .app-selector ul li {
+      border-radius: 5px; }
+      .app-selector ul li a {
+        padding: 0.8rem 1rem; }
 
 #tag-line {
   padding: 0 1rem 1rem 1rem;
