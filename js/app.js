@@ -25,7 +25,7 @@ function onload() {
 
 function updateCategory() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost/api/getcat.php", true);
+  xhr.open("GET", "https://blackhax.000webhostapp.com/api/getcat.php", true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -97,7 +97,7 @@ function uiInteraction(e, value) {
 
 function getLink(link) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost/api/api.php", true);
+  xhr.open("POST", "https://blackhax.000webhostapp.com/api/api.php", true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -182,7 +182,7 @@ function getdata(type, value, pageNo = 1) {
         var temp = `cat=${value}`;
       }
     }
-    fetch(`http://localhost/api/getpost.php?${temp}`)
+    fetch(`https://blackhax.000webhostapp.com/api/getpost.php?${temp}`)
       .then((res) => res.json())
       .catch((err) => console.log(err))
       .then((data) => {
@@ -194,6 +194,7 @@ function getdata(type, value, pageNo = 1) {
           searchList.innerHTML = "";
           status[0].innerHTML = `<h2>Showing Result for: <span>${value}</span></h2>`;
           status[1].innerHTML = `<h2>Showing Result for: <span>${value}</span></h2>`;
+
           data.forEach((element) => {
             if (postCount < maxPost) {
               postCount++;
@@ -205,7 +206,7 @@ function getdata(type, value, pageNo = 1) {
                 }
                 temp = `
                     <div class="card-1">
-                      <div><img src="${element.img}" /></div>
+                      <div><img class="post-img" src="${element.img}" /></div>
                       <div class="post-content">               
                         <h2>
                           ${element.title}
@@ -223,6 +224,28 @@ function getdata(type, value, pageNo = 1) {
               }
             }
           });
+
+          // var tempImg = document.querySelectorAll(".post-img");
+          // data.forEach((element) => {
+          //   if (element.title) {
+          //     var toStrip = element.title.match(/(\b[A-Z]['A-Z]+|\b[A-Z]\b)/g);
+          //     element.title = element.title.replace(toStrip, "");
+          //     element.title = element.title.replace("Early Access", "");
+          //     console.log(element.title);
+          //     fetch(
+          //       `https://api.rawg.io/api/games?page_size=1&search=${element.title.replace(
+          //         "Free Download",
+          //         ""
+          //       )}`
+          //     )
+          //       .then((res) => res.json())
+          //       .catch((err) => console.log(err))
+          //       .then((imgData) => {
+          //         console.log(imgData.results[0]);
+          //       })
+          //       .catch((err) => console.log(err));
+          //   }
+          // });
         } else {
           status[0].innerHTML = ``;
           status[1].innerHTML = ``;
@@ -291,7 +314,11 @@ searchList.addEventListener("click", (e) => {
     uiInteraction("getOverlay");
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost/api/getpost.php", true);
+    xhr.open(
+      "POST",
+      "https://blackhax.000webhostapp.com/api/getpost.php",
+      true
+    );
 
     //Send the proper header information along with the request
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

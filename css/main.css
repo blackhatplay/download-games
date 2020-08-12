@@ -74,14 +74,16 @@ a {
 .btn-secondary {
   background-color: rgba(245, 166, 35, 0.5); }
 
-header .main-nav {
-  padding: 1rem; }
-  header .main-nav ul {
-    font-size: 1rem;
-    display: flex;
-    gap: 1.5rem;
-    justify-content: flex-end;
-    align-items: center; }
+header {
+  align-self: flex-end; }
+  header .main-nav {
+    padding: 1rem; }
+    header .main-nav ul {
+      font-size: 1rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: flex-end;
+      align-items: center; }
 
 .app-selector ul {
   display: flex;
@@ -100,7 +102,8 @@ header .main-nav {
   height: 100%;
   position: relative;
   min-height: 100vh;
-  transition: display 3s; }
+  transition: display 3s;
+  margin-top: -5rem; }
   .main-wrapper .selected-item {
     position: absolute;
     z-index: 3;
@@ -330,6 +333,61 @@ header .main-nav {
               flex: none; }
         .main-wrapper .search-list .card-1 .post-content .post-info span {
           padding: 0 1rem; }
+  .main-wrapper .popular-post {
+    order: 6;
+    align-self: flex-start;
+    width: 100%; }
+    .main-wrapper .popular-post h2 {
+      border-bottom: 2px solid #f5a623; }
+    .main-wrapper .popular-post > div:first-child {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between; }
+      .main-wrapper .popular-post > div:first-child .filter {
+        color: #dedede;
+        width: 200px;
+        height: 40px;
+        font-family: "vollkorn", serif;
+        background-color: #0861d073;
+        border-radius: 5px;
+        border: none;
+        font-weight: 600;
+        font-size: 1rem;
+        text-align: center;
+        padding: 0 1rem;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
+        outline: none; }
+        .main-wrapper .popular-post > div:first-child .filter > option {
+          background-color: #0861d0; }
+      .main-wrapper .popular-post > div:first-child div {
+        position: relative; }
+      .main-wrapper .popular-post > div:first-child svg {
+        color: #f5a623;
+        width: 20px;
+        position: absolute;
+        right: 10px;
+        top: 10px; }
+    .main-wrapper .popular-post .list-wrapper {
+      padding-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-evenly; }
+      .main-wrapper .popular-post .list-wrapper .popular-card {
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 0.5rem;
+        border-radius: 5px; }
+        .main-wrapper .popular-post .list-wrapper .popular-card > div:first-child {
+          width: 300px; }
+          .main-wrapper .popular-post .list-wrapper .popular-card > div:first-child img {
+            width: 100%;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px; }
+        .main-wrapper .popular-post .list-wrapper .popular-card h3 {
+          text-align: center; }
 
 @keyframes slideIn {
   0% {
