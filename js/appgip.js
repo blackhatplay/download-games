@@ -293,11 +293,15 @@ searchList.addEventListener("click", (e) => {
     uiInteraction("getOverlay");
 
     var xhr = new XMLHttpRequest();
+<<<<<<< HEAD
     xhr.open(
       "POST",
       "https://blackhax.000webhostapp.com/api/getpostgip.php",
       true
     );
+=======
+    xhr.open("POST", "https://blackhax.000webhostapp.com/api/getpostgip.php", true);
+>>>>>>> ebef023c34b3d06594236a00f9cd0bcfd7272553
 
     //Send the proper header information along with the request
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
