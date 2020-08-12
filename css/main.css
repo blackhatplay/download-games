@@ -93,6 +93,13 @@ header {
     .app-selector ul li a {
       padding: 0.8rem 1rem; }
 
+#tag-line {
+  padding: 0 1rem 1rem 1rem;
+  text-align: center; }
+  #tag-line div span {
+    color: #0861d0;
+    border-bottom: 2px solid rgba(8, 97, 208, 0.5); }
+
 .main-wrapper {
   padding: 0 1rem;
   display: flex;
@@ -172,7 +179,6 @@ header {
         cursor: pointer;
         font-size: 2rem; }
   .main-wrapper h1 {
-    padding-bottom: 1rem;
     font-size: 2.5rem;
     cursor: pointer;
     text-align: center;
@@ -191,7 +197,8 @@ header {
   .main-wrapper .search {
     order: 1;
     display: flex;
-    width: 100%; }
+    width: 100%;
+    padding-top: 1rem; }
     .main-wrapper .search .search-wrapper {
       display: flex;
       border: 1px solid #ccc;
