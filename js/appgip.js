@@ -25,7 +25,7 @@ function onload() {
 
 function updateCategory() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost/api/getcatgip.php", true);
+  xhr.open("GET", "https://blackhax.000webhostapp.com/api/getcatgip.php", true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -97,7 +97,7 @@ function uiInteraction(e, value) {
 
 function getLink(link) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost/api/apigip.php", true);
+  xhr.open("POST", "https://blackhax.000webhostapp.com/api/apigip.php", true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -184,7 +184,7 @@ function getdata(type, value, pageNo = 1) {
         var temp = `cat=${value}`;
       }
     }
-    fetch(`http://localhost/api/getpostgip.php?${temp}`)
+    fetch(`https://blackhax.000webhostapp.com/api/getpostgip.php?${temp}`)
       .then((res) => res.json())
       .catch((err) => console.log(err))
       .then((data) => {
@@ -293,7 +293,11 @@ searchList.addEventListener("click", (e) => {
     uiInteraction("getOverlay");
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost/api/getpostgip.php", true);
+    xhr.open(
+      "POST",
+      "https://blackhax.000webhostapp.com/api/getpostgip.php",
+      true
+    );
 
     //Send the proper header information along with the request
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
