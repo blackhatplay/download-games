@@ -102,8 +102,7 @@ header {
   height: 100%;
   position: relative;
   min-height: 100vh;
-  transition: display 3s;
-  margin-top: -5rem; }
+  transition: display 3s; }
   .main-wrapper .selected-item {
     position: absolute;
     z-index: 3;
