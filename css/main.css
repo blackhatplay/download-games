@@ -159,6 +159,8 @@ header {
               overflow: hidden;
               height: 1rem;
               list-style: inside; }
+        .main-wrapper .selected-item .selected-wrapper .item-wrapper h4 {
+          color: red; }
       .main-wrapper .selected-item .selected-wrapper .download-wrapper {
         display: flex;
         justify-content: space-around;

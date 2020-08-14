@@ -151,6 +151,7 @@ function getPost(e, link) {
         ${e.technicalSpecs}
       </ul>
     </div>
+    <h4>Password: 123</h4>
   </div>
   <div id="download" class="download-wrapper">
   ${svgLoading}
